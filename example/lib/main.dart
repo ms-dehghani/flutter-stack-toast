@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_stack_toast/flutter_stack_toast.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,8 +32,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int index = 0;
+
+  OverlayState? overlay;
+
+  List<OverlayEntry> list = [];
+
   @override
   Widget build(BuildContext context) {
+    overlay ??= Overlay.of(context);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -46,9 +55,18 @@ class _MyHomePageState extends State<MyHomePage> {
               'For show toast click bellow button',
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                StackToast.showToast(context, Text("$index${index % 2 == 0 ? "" : "\n\ntttt"}"));
+                index++;
+              },
               child: const Text("Show Toast"),
-            )
+            ),
+            ElevatedButton(
+              onPressed: () {
+                StackToast.clear(context);
+              },
+              child: const Text("clear"),
+            ),
           ],
         ),
       ),

@@ -1,22 +1,22 @@
 import 'package:flutter/widgets.dart';
 
-import 'widget/toast_view.dart';
+import './stack_toast_view.dart';
 
-class ToastManager {
-  static ToastManager? _singleton;
+class StackToastManager {
+  static StackToastManager? _singleton;
 
-  factory ToastManager(BuildContext context) {
-    _singleton ??= ToastManager._internal(context);
+  factory StackToastManager(BuildContext context) {
+    _singleton ??= StackToastManager._internal(context);
     return _singleton!;
   }
 
   OverlayState? _overlay;
-  ToastView? _toastView;
-  GlobalKey<ToastViewState> widgetKey = GlobalKey<ToastViewState>();
+  StackToastView? _toastView;
+  GlobalKey<StackToastViewState> widgetKey = GlobalKey<StackToastViewState>();
 
   OverlayEntry? _overlayEntry;
 
-  ToastManager._internal(BuildContext context) {
+  StackToastManager._internal(BuildContext context) {
     _overlay ??= Overlay.of(context);
   }
 
@@ -31,7 +31,7 @@ class ToastManager {
 
   void addItem({Widget? widget, Text? text}) {
     if (widgetKey.currentState == null) {
-      _toastView ??= ToastView(
+      _toastView ??= StackToastView(
         () {
           _overlayEntry?.remove();
           _overlayEntry = null;

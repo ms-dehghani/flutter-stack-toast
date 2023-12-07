@@ -2,73 +2,36 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_stack_toast/src/toast_config.dart';
 
-class ToastView extends StatefulWidget {
+class StackToastView extends StatefulWidget {
   final Function() removeAllCallback;
   final Function()? firstCallAfterBuild;
 
-  final double horizontalMargin;
-  final double verticalMargin;
-
-  final double downsizePercent;
-
-  final double topItemSpace;
-
-  final int maxShowingItem;
-
-  final Alignment alignment = Alignment.bottomCenter;
-  final TextDirection dismissDirection;
-
-  final BoxShadow boxShadow;
-  final BorderRadius borderRadius;
-
-  final Color backgroundColor;
-
-  final Duration animationDuration;
-  final Duration showingItemDuration;
-
-  ToastView(this.removeAllCallback,
-      {this.firstCallAfterBuild,
-      this.backgroundColor = Colors.white,
-      this.borderRadius = const BorderRadius.all(Radius.circular(12.0)),
-      this.animationDuration = const Duration(milliseconds: 300),
-      this.showingItemDuration = const Duration(seconds: 3),
-      this.boxShadow = const BoxShadow(
-        color: Colors.black12,
-        spreadRadius: 5,
-        blurRadius: 7,
-        offset: Offset(0, 1),
-      ),
-      this.horizontalMargin = 10,
-      this.verticalMargin = 10,
-      this.downsizePercent = 5,
-      this.topItemSpace = 10,
-      this.dismissDirection = TextDirection.ltr,
-      this.maxShowingItem = 5,
-      super.key});
+  StackToastView(this.removeAllCallback, {this.firstCallAfterBuild, super.key});
 
   @override
-  State<ToastView> createState() => ToastViewState();
+  State<StackToastView> createState() => StackToastViewState();
 }
 
-class ToastViewState extends State<ToastView> with TickerProviderStateMixin {
+class StackToastViewState extends State<StackToastView> with TickerProviderStateMixin {
   late final AnimationController _insertAnimationController = AnimationController(
-    duration: widget.animationDuration,
+    duration: ToastConfig().animationDuration,
     vsync: this,
   );
 
   late final AnimationController _deleteAnimationController = AnimationController(
-    duration: widget.animationDuration,
+    duration: ToastConfig().animationDuration,
     vsync: this,
   );
 
   late final AnimationController _dismissAllAnimationController = AnimationController(
-    duration: widget.animationDuration,
+    duration: ToastConfig().animationDuration,
     vsync: this,
   );
 
   late final AnimationController _dismissAnimationController = AnimationController(
-    duration: widget.animationDuration,
+    duration: ToastConfig().animationDuration,
     vsync: this,
   );
 
@@ -86,7 +49,7 @@ class ToastViewState extends State<ToastView> with TickerProviderStateMixin {
       }
     });
 
-    downsizePercent = widget.downsizePercent / 100;
+    downsizePercent = ToastConfig().downsizePercent / 100;
 
     _insertAnimationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
@@ -137,9 +100,9 @@ class ToastViewState extends State<ToastView> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     var stack = Padding(
-      padding: EdgeInsets.only(bottom: widget.horizontalMargin),
+      padding: EdgeInsets.only(bottom: ToastConfig().horizontalMargin),
       child: Stack(
-        alignment: widget.alignment,
+        alignment: ToastConfig().alignment,
         children: listItems(),
       ),
     );
@@ -149,7 +112,7 @@ class ToastViewState extends State<ToastView> with TickerProviderStateMixin {
 
   List<Widget> listItems() {
     List<Widget> list = [];
-    int startPosition = max(0, _widgetList.length - 1 - widget.maxShowingItem);
+    int startPosition = max(0, _widgetList.length - 1 - ToastConfig().maxShowingItem);
     for (int index = startPosition; index < _widgetList.length; index++) {
       var item = _widgetList[index];
       var itemIndex = _widgetList.length - 1 - index;
@@ -227,10 +190,10 @@ class ToastViewState extends State<ToastView> with TickerProviderStateMixin {
       double startPos = 0.07 * index;
       if (controller.value < startPos) return 0.0;
       return -((controller.value - startPos) * MediaQuery.of(context).size.width) *
-          (widget.dismissDirection == TextDirection.ltr ? 1.0 : -1.0);
+          (ToastConfig().dismissDirection == TextDirection.ltr ? 1.0 : -1.0);
     } else if (index == 0 && controller == _dismissAnimationController) {
       return -(controller.value * MediaQuery.of(context).size.width) *
-          (widget.dismissDirection == TextDirection.ltr ? 1 : -1);
+          (ToastConfig().dismissDirection == TextDirection.ltr ? 1 : -1);
     } else {
       return 0;
     }
@@ -247,22 +210,23 @@ class ToastViewState extends State<ToastView> with TickerProviderStateMixin {
   double _itemEnter(double animation, int index) {
     if (index == 0) {
       double itemHeight = 40;
-      double animationDistance = itemHeight + widget.verticalMargin;
+      double animationDistance = itemHeight + ToastConfig().verticalMargin;
       var result = _insertAnimationController.isAnimating
           ? itemHeight - (animationDistance * animation)
-          : -widget.verticalMargin;
+          : -ToastConfig().verticalMargin;
       return result;
     } else {
-      double startPosition = -widget.verticalMargin -
-          ((index - (_insertAnimationController.isAnimating ? 1 : 0)) * widget.topItemSpace);
-      var result = startPosition - (animation * widget.topItemSpace);
+      double startPosition = -ToastConfig().verticalMargin -
+          ((index - (_insertAnimationController.isAnimating ? 1 : 0)) * ToastConfig().topItemSpace);
+      var result = startPosition - (animation * ToastConfig().topItemSpace);
       return result;
     }
   }
 
   double _itemExit(double animation, int index) {
-    double startPosition = -widget.verticalMargin - ((index + 1) * widget.topItemSpace);
-    var result = startPosition + (animation * widget.topItemSpace);
+    double startPosition =
+        -ToastConfig().verticalMargin - ((index + 1) * ToastConfig().topItemSpace);
+    var result = startPosition + (animation * ToastConfig().topItemSpace);
     return result;
   }
 
@@ -290,11 +254,11 @@ class ToastViewState extends State<ToastView> with TickerProviderStateMixin {
 
   Widget _getSimpleView(Text text) {
     return Container(
-      width: MediaQuery.of(context).size.width - (widget.horizontalMargin * 2),
+      width: MediaQuery.of(context).size.width - (ToastConfig().horizontalMargin * 2),
       decoration: BoxDecoration(
-          boxShadow: [widget.boxShadow],
-          color: widget.backgroundColor,
-          borderRadius: widget.borderRadius),
+          boxShadow: [ToastConfig().boxShadow],
+          color: ToastConfig().backgroundColor,
+          borderRadius: ToastConfig().borderRadius),
       child: text,
     );
   }
@@ -331,7 +295,7 @@ class ToastViewState extends State<ToastView> with TickerProviderStateMixin {
 
   void _setTimer() {
     _dismissTimer?.cancel();
-    _dismissTimer = Timer.periodic(widget.showingItemDuration, (timer) {
+    _dismissTimer = Timer.periodic(ToastConfig().showingItemDuration, (timer) {
       setState(() {
         _dismissAnimationController.forward();
       });

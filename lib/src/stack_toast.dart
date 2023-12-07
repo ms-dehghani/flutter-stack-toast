@@ -1,16 +1,17 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_stack_toast/src/toast_manager.dart';
+
+import 'lib/stack_toast_manager.dart';
 
 class StackToast {
   static void showToast(BuildContext context, Text text) {
-    ToastManager(context).addItem(text: text);
+    StackToastManager(context).addItem(text: text);
   }
 
   static void clear(BuildContext context) {
-    ToastManager(context).clear();
+    StackToastManager(context).clear();
   }
 
   static void showCustomToast(BuildContext context, Widget widget) {
-    ToastManager(context).addItem(widget: widget);
+    StackToastManager(context).addItem(widget: widget);
   }
 }

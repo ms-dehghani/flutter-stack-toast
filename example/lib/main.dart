@@ -54,12 +54,18 @@ class _MyHomePageState extends State<MyHomePage> {
             const Text(
               'For show toast click bellow button',
             ),
+            SizedBox(
+              height: 20,
+            ),
             ElevatedButton(
               onPressed: () {
-                StackToast.showToast(context, Text("$index${index % 2 == 0 ? "" : "\n\ntttt"}"));
+                StackToast.showToast(context, "$index");
                 index++;
               },
               child: const Text("Show Toast"),
+            ),
+            SizedBox(
+              height: 20,
             ),
             ElevatedButton(
               onPressed: () {

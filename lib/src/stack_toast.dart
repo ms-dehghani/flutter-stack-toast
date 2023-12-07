@@ -1,9 +1,17 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 import 'lib/stack_toast_manager.dart';
 
 class StackToast {
-  static void showToast(BuildContext context, Text text) {
+  static void showToast(BuildContext context, String text) {
+    StackToastManager(context).addItem(
+        text: Text(
+      text,
+      style: const TextStyle(color: Colors.black, fontSize: 15),
+    ));
+  }
+
+  static void showTextToast(BuildContext context, Text text) {
     StackToastManager(context).addItem(text: text);
   }
 

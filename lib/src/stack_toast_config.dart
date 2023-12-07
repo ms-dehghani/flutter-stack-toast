@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 
-class ToastConfig {
-  static ToastConfig? _singleton;
+class StackToastConfig {
+  static StackToastConfig? _singleton;
 
-  factory ToastConfig() {
-    _singleton ??= ToastConfig._internal();
+  factory StackToastConfig() {
+    _singleton ??= StackToastConfig._internal();
     return _singleton!;
   }
 
   late double _horizontalMargin;
   late double _verticalMargin;
   late double _downsizePercent;
-  late double _topItemSpace;
+  late double _betweenItemSpace;
+  late double _simpleItemHeight;
 
   late int _maxShowingItem;
 
@@ -28,7 +29,7 @@ class ToastConfig {
 
   late bool _autoDismissEnable;
 
-  ToastConfig._internal() {
+  StackToastConfig._internal() {
     _backgroundColor = Colors.white;
     _borderRadius = const BorderRadius.all(Radius.circular(12.0));
     _animationDuration = const Duration(milliseconds: 300);
@@ -42,9 +43,10 @@ class ToastConfig {
     _horizontalMargin = 10;
     _verticalMargin = 10;
     _downsizePercent = 5;
-    _topItemSpace = 10;
+    _betweenItemSpace = 10;
     _dismissDirection = TextDirection.ltr;
     _maxShowingItem = 5;
+    _simpleItemHeight = 40;
     _autoDismissEnable = true;
   }
 
@@ -56,7 +58,7 @@ class ToastConfig {
     return _horizontalMargin;
   }
 
-  ToastConfig setHorizontalMargin(double horizontalMargin) {
+  StackToastConfig setHorizontalMargin(double horizontalMargin) {
     _horizontalMargin = horizontalMargin;
     return this;
   }
@@ -65,8 +67,17 @@ class ToastConfig {
     return _verticalMargin;
   }
 
-  ToastConfig setVerticalMargin(double verticalMargin) {
+  StackToastConfig setVerticalMargin(double verticalMargin) {
     _verticalMargin = verticalMargin;
+    return this;
+  }
+
+  double get simpleItemHeight {
+    return _simpleItemHeight;
+  }
+
+  StackToastConfig setSimpleItemHeight(double simpleItemHeight) {
+    _simpleItemHeight = simpleItemHeight;
     return this;
   }
 
@@ -74,17 +85,17 @@ class ToastConfig {
     return _downsizePercent;
   }
 
-  ToastConfig setDownsizePercent(double downsizePercent) {
+  StackToastConfig setDownsizePercent(double downsizePercent) {
     _downsizePercent = downsizePercent;
     return this;
   }
 
-  double get topItemSpace {
-    return _topItemSpace;
+  double get betweenItemSpace {
+    return _betweenItemSpace;
   }
 
-  ToastConfig setTopItemSpace(double topItemSpace) {
-    _topItemSpace = topItemSpace;
+  StackToastConfig setBetweenItemSpace(double betweenItemSpace) {
+    _betweenItemSpace = betweenItemSpace;
     return this;
   }
 
@@ -92,7 +103,7 @@ class ToastConfig {
     return _maxShowingItem;
   }
 
-  ToastConfig setMaxShowingItem(int maxShowingItem) {
+  StackToastConfig setMaxShowingItem(int maxShowingItem) {
     _maxShowingItem = maxShowingItem;
     return this;
   }
@@ -101,7 +112,7 @@ class ToastConfig {
     return _dismissDirection;
   }
 
-  ToastConfig setDismissDirection(TextDirection dismissDirection) {
+  StackToastConfig setDismissDirection(TextDirection dismissDirection) {
     _dismissDirection = dismissDirection;
     return this;
   }
@@ -110,7 +121,7 @@ class ToastConfig {
     return _boxShadow;
   }
 
-  ToastConfig setBoxShadow(BoxShadow boxShadow) {
+  StackToastConfig setBoxShadow(BoxShadow boxShadow) {
     _boxShadow = boxShadow;
     return this;
   }
@@ -119,7 +130,7 @@ class ToastConfig {
     return _borderRadius;
   }
 
-  ToastConfig setBorderRadius(BorderRadius borderRadius) {
+  StackToastConfig setBorderRadius(BorderRadius borderRadius) {
     _borderRadius = borderRadius;
     return this;
   }
@@ -128,7 +139,7 @@ class ToastConfig {
     return _backgroundColor;
   }
 
-  ToastConfig setBackgroundColor(Color backgroundColor) {
+  StackToastConfig setBackgroundColor(Color backgroundColor) {
     _backgroundColor = backgroundColor;
     return this;
   }
@@ -137,7 +148,7 @@ class ToastConfig {
     return _animationDuration;
   }
 
-  ToastConfig setAnimationDuration(Duration animationDuration) {
+  StackToastConfig setAnimationDuration(Duration animationDuration) {
     _animationDuration = animationDuration;
     return this;
   }
@@ -146,7 +157,7 @@ class ToastConfig {
     return _showingItemDuration;
   }
 
-  ToastConfig setAutoDismissItemDuration(Duration showingItemDuration) {
+  StackToastConfig setAutoDismissItemDuration(Duration showingItemDuration) {
     _showingItemDuration = showingItemDuration;
     return this;
   }
@@ -155,7 +166,7 @@ class ToastConfig {
     return _autoDismissEnable;
   }
 
-  ToastConfig setAutoDismissEnable(bool autoDismissEnable) {
+  StackToastConfig setAutoDismissEnable(bool autoDismissEnable) {
     _autoDismissEnable = autoDismissEnable;
     return this;
   }

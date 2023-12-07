@@ -1,7 +1,7 @@
 name: flutter_stack_toast
 description: A new Flutter package project.
 version: 0.0.1
-homepage:
+homepage: https://github.com/ms-dehghani/flutter-stack-toast
 
 environment:
   sdk: '>=2.19.6 <3.0.0'

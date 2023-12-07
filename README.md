@@ -1,18 +1,3 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
-
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
 
 ## Features
 
@@ -70,25 +55,25 @@ You can dismiss all toast widget with clear method:
 And also you can change all default configs:
 
 ```dart
-StackToastConfig().
-  setHorizontalMargin(10).
-  setVerticalMargin(10).
-  setSimpleItemHeight(40).
-  setDownsizePercent(5).
-  setBetweenItemSpace(10).
-  setMaxShowingItem(5).
-  setDismissDirection(TextDirection.ltr).
-  setBoxShadow(BoxShadow(
+StackToastConfig()
+  .setHorizontalMargin(10)
+  .setVerticalMargin(10)
+  .setSimpleItemHeight(40)
+  .setDownsizePercent(5)
+  .setBetweenItemSpace(10)
+  .setMaxShowingItem(5)
+  .setDismissDirection(TextDirection.ltr)
+  .setBoxShadow(BoxShadow(
     color: Colors.black12,
     spreadRadius: 5,
     blurRadius: 7,
     offset: Offset(0, 1),
-    )).
-  setBorderRadius(BorderRadius.all(Radius.circular(12.0))).
-  setBackgroundColor(Colors.white).
-  setAnimationDuration(Duration(milliseconds: 300)).
-  setAutoDismissItemDuration(Duration(seconds: 3)).
-  setAutoDismissEnable(true);
+    ))
+  .setBorderRadius(BorderRadius.all(Radius.circular(12.0)))
+  .setBackgroundColor(Colors.white)
+  .setAnimationDuration(Duration(milliseconds: 300))
+  .setAutoDismissItemDuration(Duration(seconds: 3))
+  .setAutoDismissEnable(true);
  ```
 
 

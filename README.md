@@ -46,7 +46,7 @@ This one is the most customizable, allowing you to use any widget you prefer.
  StackToast.showCustomToast(buildContext, Text("desired text" , TextStyle(color: Colors.black, fontSize: 15)));
  ```
 
-You can dismiss all showing toast widgets with clear method:
+You can dismiss all showing and queued toast widgets with clear method:
 
 ```dart
  StackToast.clear(buildContext);

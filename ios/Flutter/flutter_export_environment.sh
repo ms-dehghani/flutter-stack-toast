@@ -1,5 +1,3 @@
-#!/bin/sh
-# This is a generated file; do not edit or check into version control.
 export "FLUTTER_ROOT=C:\sdkFlutter\flutter"
 export "FLUTTER_APPLICATION_PATH=C:\AndroidProjects\flutter-stack-toast"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"

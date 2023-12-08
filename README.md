@@ -1,15 +1,15 @@
 
 ## Features
 
-1. Configurable toast view.
+1. Configurable toast view
 2. Slide to dismiss
 3. Auto dismissible
 4. Can show custom widget as toast
-5. Stacking toast view.
+5. Stacking toast view
 
 ## Getting started
 
-Add this line into pubspec.yaml
+Add this line to pubspec.yaml file:
 
 ```dart
     flutter_stack_toast: ^0.0.1
@@ -23,36 +23,36 @@ import 'package:flutter_stack_toast/flutter_stack_toast.dart';
 
 ## Usage
 
-For showing toast you have three method in "StackToast" class:
+For showing toast you have three methods in "StackToast" class:
 
 showToast:
-With this method you only send your text and it will show.
+The only input needed in this method, is the text
 
 ```dart
  StackToast.showToast(buildContext, "desired text");
  ```
 
 showTextToast:
-With this method you can customize your text widget with your property.
+You can customize your toast more with this method, using the whole Text widget instead of the String
 
 ```dart
  StackToast.showTextToast(buildContext, Text("desired text" , TextStyle(color: Colors.black, fontSize: 15)));
  ```
 
 showCustomToast:
-With this method you can show any widget you want into toast widget.
+This one is the most customizable, allowing you to use any widget you prefer.
 
 ```dart
  StackToast.showCustomToast(buildContext, Text("desired text" , TextStyle(color: Colors.black, fontSize: 15)));
  ```
 
-You can dismiss all toast widget with clear method:
+You can dismiss all showing and queued toast widgets with clear method:
 
 ```dart
  StackToast.clear(buildContext);
  ```
 
-And also you can change all default configs:
+You can also change all the default configs:
 
 ```dart
 StackToastConfig()

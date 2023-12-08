@@ -8,7 +8,7 @@ class StackToastView extends StatefulWidget {
   final Function() removeAllCallback;
   final Function()? firstCallAfterBuild;
 
-  StackToastView(this.removeAllCallback, {this.firstCallAfterBuild, super.key});
+  const StackToastView(this.removeAllCallback, {this.firstCallAfterBuild, super.key});
 
   @override
   State<StackToastView> createState() => StackToastViewState();

@@ -119,6 +119,12 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(
               height: 20,
             ),
+            const Text(
+              'To clear all the toasts, click the button below:',
+            ),
+            const SizedBox(
+              height: 20,
+            ),
             ElevatedButton(
               onPressed: () {
                 StackToast.clear(context);

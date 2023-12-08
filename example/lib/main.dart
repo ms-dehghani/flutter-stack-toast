@@ -59,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             ElevatedButton(
               onPressed: () {
-                StackToast.showToast(context, "$index");
+                StackToast.showToast(context, "It is the toast number $index");
                 index++;
               },
               child: const Text("Show Toast"),

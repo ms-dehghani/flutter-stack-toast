@@ -4,6 +4,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_stack_toast/src/stack_toast_config.dart';
 
+import 'alignment.dart';
+
 class StackToastView extends StatefulWidget {
   final Function() removeAllCallback;
   final Function()? firstCallAfterBuild;
@@ -102,12 +104,24 @@ class StackToastViewState extends State<StackToastView> with TickerProviderState
     var stack = Padding(
       padding: EdgeInsets.only(bottom: StackToastConfig().horizontalMargin),
       child: Stack(
-        alignment: StackToastConfig().alignment,
+        alignment: _getAlignment(),
         children: listItems(),
       ),
     );
 
     return stack;
+  }
+
+  AlignmentGeometry _getAlignment() {
+    switch (StackToastConfig().alignment) {
+      case ToastAlignment.TOP:
+        return Alignment.topCenter;
+      case ToastAlignment.BOTTOM:
+        return Alignment.bottomCenter;
+      case ToastAlignment.LEFT:
+      case ToastAlignment.RIGHT:
+        return Alignment.center;
+    }
   }
 
   List<Widget> listItems() {
@@ -125,12 +139,18 @@ class StackToastViewState extends State<StackToastView> with TickerProviderState
     var itemView = index == 0
         ? Dismissible(
             key: UniqueKey(),
-            direction: DismissDirection.horizontal,
+            direction: StackToastConfig().dismissDirection == TextDirection.rtl
+                ? DismissDirection.startToEnd
+                : DismissDirection.endToStart,
             onDismissed: (DismissDirection direction) {
               removeLast();
             },
             onUpdate: (details) {
-              _dismissTimer?.cancel();
+              if (details.progress == 0.0) {
+                _setTimer();
+              } else {
+                _dismissTimer?.cancel();
+              }
             },
             child: widget,
           )

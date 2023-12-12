@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'lib/alignment.dart';
+
 class StackToastConfig {
   static StackToastConfig? _singleton;
 
@@ -16,7 +18,8 @@ class StackToastConfig {
 
   late int _maxShowingItem;
 
-  late final Alignment _alignment = Alignment.bottomCenter;
+  late ToastAlignment _alignment;
+
   late TextDirection _dismissDirection;
 
   late BoxShadow _boxShadow;
@@ -48,9 +51,10 @@ class StackToastConfig {
     _maxShowingItem = 5;
     _simpleItemHeight = 40;
     _autoDismissEnable = true;
+    _alignment = ToastAlignment.BOTTOM;
   }
 
-  Alignment get alignment {
+  ToastAlignment get alignment {
     return _alignment;
   }
 

@@ -108,7 +108,7 @@ class StackToastConfig {
   }
 
   StackToastConfig setMaxShowingItem(int maxShowingItem) {
-    _maxShowingItem = maxShowingItem;
+    _maxShowingItem = maxShowingItem <= 0 ? 5 : maxShowingItem;
     return this;
   }
 

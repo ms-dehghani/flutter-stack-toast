@@ -101,11 +101,15 @@ class StackToastViewState extends State<StackToastView> with TickerProviderState
 
   @override
   Widget build(BuildContext context) {
-    var stack = Padding(
-      padding: EdgeInsets.only(bottom: StackToastConfig().horizontalMargin),
-      child: Stack(
-        alignment: _getAlignment(),
-        children: listItems(),
+    var stack = SafeArea(
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+            horizontal: StackToastConfig().horizontalMargin,
+            vertical: StackToastConfig().verticalMargin),
+        child: Stack(
+          alignment: _getAlignment(),
+          children: listItems(),
+        ),
       ),
     );
 
@@ -118,8 +122,7 @@ class StackToastViewState extends State<StackToastView> with TickerProviderState
         return Alignment.topCenter;
       case ToastAlignment.BOTTOM:
         return Alignment.bottomCenter;
-      case ToastAlignment.LEFT:
-      case ToastAlignment.RIGHT:
+      case ToastAlignment.CENTER:
         return Alignment.center;
     }
   }
@@ -139,9 +142,7 @@ class StackToastViewState extends State<StackToastView> with TickerProviderState
     var itemView = index == 0
         ? Dismissible(
             key: UniqueKey(),
-            direction: StackToastConfig().dismissDirection == TextDirection.rtl
-                ? DismissDirection.startToEnd
-                : DismissDirection.endToStart,
+            direction: _getDismissDirection(),
             onDismissed: (DismissDirection direction) {
               removeLast();
             },
@@ -166,11 +167,17 @@ class StackToastViewState extends State<StackToastView> with TickerProviderState
         alignment: FractionalOffset.center,
         transform: Matrix4.identity()
           ..setEntry(3, 2, 0.001)
-          ..translate(0.0, _animateY(true, _insertAnimationController, index), 0)
+          ..translate(_animateX(true, null, index), _animateY(true, null, index), 0)
           ..scale(_itemScale(false, _insertAnimationController, index)),
         child: itemView,
       );
     }
+  }
+
+  DismissDirection _getDismissDirection() {
+    return StackToastConfig().dismissDirection == TextDirection.rtl
+        ? DismissDirection.startToEnd
+        : DismissDirection.endToStart;
   }
 
   AnimationController? getRunningAnimation() {
@@ -197,7 +204,8 @@ class StackToastViewState extends State<StackToastView> with TickerProviderState
           alignment: FractionalOffset.center,
           transform: Matrix4.identity()
             ..setEntry(3, 2, 0.001)
-            ..translate(_animateX(controller, index), _animateY(insert, controller, index), 0)
+            ..translate(
+                _animateX(insert, controller, index), _animateY(insert, controller, index), 0)
             ..scale(_itemScale(insert, controller, index)),
           child: child,
         );
@@ -205,7 +213,10 @@ class StackToastViewState extends State<StackToastView> with TickerProviderState
     );
   }
 
-  double _animateX(AnimationController controller, int index) {
+  double _animateX(bool insert, AnimationController? controller, int index) {
+    if (controller == null) {
+      return 0;
+    }
     if (controller == _dismissAllAnimationController) {
       double startPos = 0.07 * index;
       if (controller.value < startPos) return 0.0;
@@ -219,35 +230,45 @@ class StackToastViewState extends State<StackToastView> with TickerProviderState
     }
   }
 
-  double _animateY(bool insert, AnimationController controller, int index) {
+  double _animateY(bool insert, AnimationController? controller, int index) {
+    if (controller == null) {
+      return insert ? _itemEnterY(0.0, index) : _itemExitY(0.0, index);
+    }
     if (controller == _dismissAllAnimationController || controller == _dismissAnimationController) {
-      return _itemExit(1, index);
+      return _itemExitY(1, index);
     } else {
-      return insert ? _itemEnter(controller.value, index) : _itemExit(controller.value, index);
+      return insert ? _itemEnterY(controller.value, index) : _itemExitY(controller.value, index);
     }
   }
 
-  double _itemEnter(double animation, int index) {
+  double _itemEnterY(double animation, int index) {
+    double result = 0.0;
+    int direction = StackToastConfig().alignment == ToastAlignment.TOP ? -1 : 1;
     if (index == 0) {
       double itemHeight = StackToastConfig().simpleItemHeight;
       double animationDistance = itemHeight + StackToastConfig().verticalMargin;
-      var result = _insertAnimationController.isAnimating
-          ? itemHeight - (animationDistance * animation)
-          : -StackToastConfig().verticalMargin;
+      result = _insertAnimationController.isAnimating
+          ? (direction * itemHeight) - (animationDistance * animation * direction)
+          : StackToastConfig().verticalMargin * -(direction);
       return result;
     } else {
-      double startPosition = -StackToastConfig().verticalMargin -
-          ((index - (_insertAnimationController.isAnimating ? 1 : 0)) *
-              StackToastConfig().betweenItemSpace);
-      var result = startPosition - (animation * StackToastConfig().betweenItemSpace);
-      return result;
+      bool isShowTop = StackToastConfig().alignment == ToastAlignment.TOP;
+      var startPosition = (StackToastConfig().verticalMargin * (isShowTop ? 1 : -1)) +
+          StackToastConfig().betweenItemSpace *
+              (isShowTop ? 1 : -1) *
+              (_insertAnimationController.isAnimating ? index - 1 : index);
+      result = startPosition +
+          ((animation * StackToastConfig().betweenItemSpace) * (isShowTop ? 1 : -1));
     }
+    return result;
   }
 
-  double _itemExit(double animation, int index) {
-    double startPosition =
-        -StackToastConfig().verticalMargin - ((index + 1) * StackToastConfig().betweenItemSpace);
-    var result = startPosition + (animation * StackToastConfig().betweenItemSpace);
+  double _itemExitY(double animation, int index) {
+    bool isShowTop = StackToastConfig().alignment == ToastAlignment.TOP;
+    var startPosition = (StackToastConfig().verticalMargin * (isShowTop ? 1 : -1)) +
+        (((index + 1) * StackToastConfig().betweenItemSpace) * (isShowTop ? 1 : -1));
+    var result =
+        startPosition - ((isShowTop ? 1 : -1) * animation * StackToastConfig().betweenItemSpace);
     return result;
   }
 

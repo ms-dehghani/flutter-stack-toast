@@ -1,1 +1,1 @@
-enum ToastAlignment { TOP, BOTTOM, LEFT, RIGHT }
+enum ToastAlignment { TOP, BOTTOM, CENTER }

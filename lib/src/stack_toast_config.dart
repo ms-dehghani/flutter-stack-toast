@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import 'lib/alignment.dart';
@@ -108,7 +110,7 @@ class StackToastConfig {
   }
 
   StackToastConfig setMaxShowingItem(int maxShowingItem) {
-    _maxShowingItem = maxShowingItem <= 0 ? 5 : maxShowingItem;
+    _maxShowingItem = min(max(maxShowingItem, 1), 20);
     return this;
   }
 

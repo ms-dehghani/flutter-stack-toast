@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import 'lib/alignment.dart';
+import 'lib/toast_alignment.dart';
 
 class StackToastConfig {
   static StackToastConfig? _singleton;
@@ -53,7 +53,7 @@ class StackToastConfig {
     _maxShowingItem = 5;
     _simpleItemHeight = 40;
     _autoDismissEnable = true;
-    _alignment = ToastAlignment.BOTTOM;
+    _alignment = ToastAlignment.bottom;
   }
 
   ToastAlignment get alignment {

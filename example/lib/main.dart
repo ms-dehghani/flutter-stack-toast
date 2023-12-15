@@ -62,78 +62,158 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'To display the toast, click one of the buttons below:',
-            ),
+            _simpleToast(),
             const SizedBox(
               height: 20,
             ),
-            ElevatedButton(
-              onPressed: () {
-                StackToast.showToast(context, "It is the toast number $index");
-                index++;
-              },
-              child: const Text("Show Basic Toast"),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                StackToast.showTextToast(
-                    context,
-                    Text(
-                      "It is the toast number $index",
-                      style: const TextStyle(
-                        color: Colors.amber,
-                        letterSpacing: 5,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        decoration: TextDecoration.none,
-                      ),
-                    ));
-                index++;
-              },
-              child: const Text("Show Text Toast"),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                StackToast.showCustomToast(
-                    context,
-                    Container(
-                      width: 300,
-                      height: 50,
-                      color: Colors.amber,
-                      child: Icon(
-                        icons[Random().nextInt(icons.length)],
-                        color: Colors.white,
-                      ),
-                    ));
-                index++;
-              },
-              child: const Text("Show Custom Toast"),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            const Text(
-              'To clear all the toasts, click the button below:',
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                StackToast.clear(context);
-              },
-              child: const Text("Clear"),
-            ),
+            _stackToast()
           ],
         ),
       ),
+    );
+  }
+
+  Widget _simpleToast() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        const Text(
+          'Simple toast functions:',
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        ElevatedButton(
+          onPressed: () {
+            FlutterToast.showToast(context, "It is the toast number $index", Duration(seconds: 2));
+            index++;
+          },
+          child: const Text("Show Toast"),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        ElevatedButton(
+          onPressed: () {
+            FlutterToast.showTextToast(
+                context,
+                Text(
+                  "It is the toast number\n\n\n $index",
+                  style: const TextStyle(
+                    color: Colors.amber,
+                    letterSpacing: 5,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    decoration: TextDecoration.none,
+                  ),
+                ),
+                Duration(seconds: 2));
+            index++;
+          },
+          child: const Text("Show Text Toast"),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        ElevatedButton(
+          onPressed: () {
+            FlutterToast.showCustomToast(
+                context,
+                Container(
+                  width: 300,
+                  height: 50,
+                  color: Colors.amber,
+                  child: Icon(
+                    icons[Random().nextInt(icons.length)],
+                    color: Colors.white,
+                  ),
+                ),
+                Duration(seconds: 2));
+            index++;
+          },
+          child: const Text("Show Custom Toast"),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        ElevatedButton(
+          onPressed: () {
+            FlutterToast.clear(context);
+          },
+          child: const Text("Clear simple toast"),
+        ),
+      ],
+    );
+  }
+
+  Widget _stackToast() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        const Text(
+          'Stack toast functions:',
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        ElevatedButton(
+          onPressed: () {
+            FlutterToast.showStackToast(context, "It is the toast number $index");
+            index++;
+          },
+          child: const Text("Show Stack Toast"),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        ElevatedButton(
+          onPressed: () {
+            FlutterToast.showStackTextToast(
+                context,
+                Text(
+                  "It is the toast number $index",
+                  style: const TextStyle(
+                    color: Colors.amber,
+                    letterSpacing: 5,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    decoration: TextDecoration.none,
+                  ),
+                ));
+            index++;
+          },
+          child: const Text("Show Stack Text Toast"),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        ElevatedButton(
+          onPressed: () {
+            FlutterToast.showStackCustomToast(
+                context,
+                Container(
+                  width: 300,
+                  height: 50,
+                  color: Colors.amber,
+                  child: Icon(
+                    icons[Random().nextInt(icons.length)],
+                    color: Colors.white,
+                  ),
+                ));
+            index++;
+          },
+          child: const Text("Show Stack Custom Toast"),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        ElevatedButton(
+          onPressed: () {
+            FlutterToast.clearStackToast(context);
+          },
+          child: const Text("Clear Stack toast."),
+        ),
+      ],
     );
   }
 }

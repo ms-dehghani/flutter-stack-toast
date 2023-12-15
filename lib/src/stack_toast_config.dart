@@ -1,4 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+
+import 'lib/toast_alignment.dart';
 
 class StackToastConfig {
   static StackToastConfig? _singleton;
@@ -16,7 +20,8 @@ class StackToastConfig {
 
   late int _maxShowingItem;
 
-  late final Alignment _alignment = Alignment.bottomCenter;
+  late ToastAlignment _alignment;
+
   late TextDirection _dismissDirection;
 
   late BoxShadow _boxShadow;
@@ -48,9 +53,15 @@ class StackToastConfig {
     _maxShowingItem = 5;
     _simpleItemHeight = 40;
     _autoDismissEnable = true;
+    _alignment = ToastAlignment.bottom;
   }
 
-  Alignment get alignment {
+  StackToastConfig setAlignment(ToastAlignment alignment) {
+    _alignment = alignment;
+    return this;
+  }
+
+  ToastAlignment get alignment {
     return _alignment;
   }
 
@@ -59,7 +70,7 @@ class StackToastConfig {
   }
 
   StackToastConfig setHorizontalMargin(double horizontalMargin) {
-    _horizontalMargin = horizontalMargin;
+    _horizontalMargin = max(horizontalMargin, 10);
     return this;
   }
 
@@ -68,7 +79,7 @@ class StackToastConfig {
   }
 
   StackToastConfig setVerticalMargin(double verticalMargin) {
-    _verticalMargin = verticalMargin;
+    _verticalMargin = max(verticalMargin, 10);
     return this;
   }
 
@@ -77,7 +88,7 @@ class StackToastConfig {
   }
 
   StackToastConfig setSimpleItemHeight(double simpleItemHeight) {
-    _simpleItemHeight = simpleItemHeight;
+    _simpleItemHeight = max(simpleItemHeight, 40);
     return this;
   }
 
@@ -86,7 +97,7 @@ class StackToastConfig {
   }
 
   StackToastConfig setDownsizePercent(double downsizePercent) {
-    _downsizePercent = downsizePercent;
+    _downsizePercent = max(downsizePercent, 0);
     return this;
   }
 
@@ -95,7 +106,7 @@ class StackToastConfig {
   }
 
   StackToastConfig setBetweenItemSpace(double betweenItemSpace) {
-    _betweenItemSpace = betweenItemSpace;
+    _betweenItemSpace = max(betweenItemSpace, 0);
     return this;
   }
 
@@ -104,7 +115,7 @@ class StackToastConfig {
   }
 
   StackToastConfig setMaxShowingItem(int maxShowingItem) {
-    _maxShowingItem = maxShowingItem;
+    _maxShowingItem = min(max(maxShowingItem, 1), 20);
     return this;
   }
 

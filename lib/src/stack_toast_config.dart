@@ -65,7 +65,7 @@ class StackToastConfig {
   }
 
   StackToastConfig setHorizontalMargin(double horizontalMargin) {
-    _horizontalMargin = horizontalMargin;
+    _horizontalMargin = max(horizontalMargin, 10);
     return this;
   }
 
@@ -74,7 +74,7 @@ class StackToastConfig {
   }
 
   StackToastConfig setVerticalMargin(double verticalMargin) {
-    _verticalMargin = verticalMargin;
+    _verticalMargin = max(verticalMargin, 10);
     return this;
   }
 
@@ -83,7 +83,7 @@ class StackToastConfig {
   }
 
   StackToastConfig setSimpleItemHeight(double simpleItemHeight) {
-    _simpleItemHeight = simpleItemHeight;
+    _simpleItemHeight = max(simpleItemHeight, 40);
     return this;
   }
 
@@ -92,7 +92,7 @@ class StackToastConfig {
   }
 
   StackToastConfig setDownsizePercent(double downsizePercent) {
-    _downsizePercent = downsizePercent;
+    _downsizePercent = max(downsizePercent, 0);
     return this;
   }
 
@@ -101,7 +101,7 @@ class StackToastConfig {
   }
 
   StackToastConfig setBetweenItemSpace(double betweenItemSpace) {
-    _betweenItemSpace = betweenItemSpace;
+    _betweenItemSpace = max(betweenItemSpace, 0);
     return this;
   }
 

@@ -85,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         ElevatedButton(
           onPressed: () {
-            StackToast.showToast(context, "It is the toast number $index", Duration(seconds: 2));
+            FlutterToast.showToast(context, "It is the toast number $index", Duration(seconds: 2));
             index++;
           },
           child: const Text("Show Toast"),
@@ -95,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         ElevatedButton(
           onPressed: () {
-            StackToast.showTextToast(
+            FlutterToast.showTextToast(
                 context,
                 Text(
                   "It is the toast number\n\n\n $index",
@@ -117,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         ElevatedButton(
           onPressed: () {
-            StackToast.showCustomToast(
+            FlutterToast.showCustomToast(
                 context,
                 Container(
                   width: 300,
@@ -138,7 +138,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         ElevatedButton(
           onPressed: () {
-            StackToast.clear(context);
+            FlutterToast.clear(context);
           },
           child: const Text("Clear simple toast"),
         ),
@@ -158,7 +158,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         ElevatedButton(
           onPressed: () {
-            StackToast.showStackToast(context, "It is the toast number $index");
+            FlutterToast.showStackToast(context, "It is the toast number $index");
             index++;
           },
           child: const Text("Show Stack Toast"),
@@ -168,7 +168,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         ElevatedButton(
           onPressed: () {
-            StackToast.showStackTextToast(
+            FlutterToast.showStackTextToast(
                 context,
                 Text(
                   "It is the toast number $index",
@@ -189,7 +189,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         ElevatedButton(
           onPressed: () {
-            StackToast.showStackCustomToast(
+            FlutterToast.showStackCustomToast(
                 context,
                 Container(
                   width: 300,
@@ -209,7 +209,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         ElevatedButton(
           onPressed: () {
-            StackToast.clearStackToast(context);
+            FlutterToast.clearStackToast(context);
           },
           child: const Text("Clear Stack toast."),
         ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'lib/stack_toast_manager.dart';
 
-class StackToast {
+class FlutterToast {
   static void showToast(BuildContext context, String text, Duration duration) {
     FlutterToastManager(context).addItemToSimpleToast(
       duration,

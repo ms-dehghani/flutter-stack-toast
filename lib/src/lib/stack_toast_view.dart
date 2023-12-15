@@ -4,7 +4,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_stack_toast/src/stack_toast_config.dart';
 
-import 'alignment.dart';
+import 'toast_alignment.dart';
 
 class StackToastView extends StatefulWidget {
   final Function() removeAllCallback;
@@ -118,11 +118,11 @@ class StackToastViewState extends State<StackToastView> with TickerProviderState
 
   AlignmentGeometry _getAlignment() {
     switch (StackToastConfig().alignment) {
-      case ToastAlignment.TOP:
+      case ToastAlignment.top:
         return Alignment.topCenter;
-      case ToastAlignment.BOTTOM:
+      case ToastAlignment.bottom:
         return Alignment.bottomCenter;
-      case ToastAlignment.CENTER:
+      case ToastAlignment.center:
         return Alignment.center;
     }
   }
@@ -243,7 +243,7 @@ class StackToastViewState extends State<StackToastView> with TickerProviderState
 
   double _itemEnterY(double animation, int index) {
     double result = 0.0;
-    int direction = StackToastConfig().alignment == ToastAlignment.TOP ? -1 : 1;
+    int direction = StackToastConfig().alignment == ToastAlignment.top ? -1 : 1;
     if (index == 0) {
       double itemHeight = StackToastConfig().simpleItemHeight;
       double animationDistance = itemHeight + StackToastConfig().verticalMargin;
@@ -252,7 +252,7 @@ class StackToastViewState extends State<StackToastView> with TickerProviderState
           : StackToastConfig().verticalMargin * -(direction);
       return result;
     } else {
-      bool isShowTop = StackToastConfig().alignment == ToastAlignment.TOP;
+      bool isShowTop = StackToastConfig().alignment == ToastAlignment.top;
       var startPosition = (StackToastConfig().verticalMargin * (isShowTop ? 1 : -1)) +
           StackToastConfig().betweenItemSpace *
               (isShowTop ? 1 : -1) *
@@ -264,7 +264,7 @@ class StackToastViewState extends State<StackToastView> with TickerProviderState
   }
 
   double _itemExitY(double animation, int index) {
-    bool isShowTop = StackToastConfig().alignment == ToastAlignment.TOP;
+    bool isShowTop = StackToastConfig().alignment == ToastAlignment.top;
     var startPosition = (StackToastConfig().verticalMargin * (isShowTop ? 1 : -1)) +
         (((index + 1) * StackToastConfig().betweenItemSpace) * (isShowTop ? 1 : -1));
     var result =

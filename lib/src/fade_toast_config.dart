@@ -42,6 +42,11 @@ class FadeToastConfig {
     _alignment = ToastAlignment.bottom;
   }
 
+  FadeToastConfig setAlignment(ToastAlignment alignment) {
+    _alignment = alignment;
+    return this;
+  }
+
   ToastAlignment get alignment {
     return _alignment;
   }

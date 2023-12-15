@@ -56,6 +56,11 @@ class StackToastConfig {
     _alignment = ToastAlignment.bottom;
   }
 
+  StackToastConfig setAlignment(ToastAlignment alignment) {
+    _alignment = alignment;
+    return this;
+  }
+
   ToastAlignment get alignment {
     return _alignment;
   }
